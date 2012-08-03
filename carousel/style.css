@@ -1,0 +1,19 @@
+.slider{
+	position:relative;
+	overflow:hidden;
+}
+.items{
+	background:#999;
+	position:relative;
+	padding:15px;
+}
+.i_wrap{
+	position:absolute;top:0;
+}
+.nav_buttons{position:absolute;height:99%;border:1px solid red;width:99%;z-index:2;}
+.nav_buttons .btn{position:absolute;	}
+.vertical .bt1{top:0px;}
+.vertical .bt2{bottom:0px;}
+.horizontal .bt1{top:50%;left:0px;}
+.horizontal .bt2{right:0px;top:50%;}
+/*slider ends*/
