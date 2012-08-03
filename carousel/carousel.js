@@ -35,52 +35,41 @@
 
 		switch(dir){
 			case 'up':
-				console.log(o.slide_start);
 				if(o.slide_start <= ($(a_el+' .items').length-2)){
 					($(a_el)).animate({
 						top:'-='+el.height()
 					}, o.animation_time);
 					o.slide_start = o.slide_start +1;
-					console.log(o.slide_start);
 				}
 			break;
 			case 'down':
-				console.log(o.slide_start);
 				if(o.slide_start >= 1){
 					($(a_el)).animate({
 						top:'+='+el.height()
 					}, o.animation_time);
 					o.slide_start = o.slide_start -1;
-					console.log(o.slide_start);
 				}	
 			break;
 			case "left":
-				console.log(o.slide_start);
 				if(o.slide_start >= 1){
 					($(a_el)).animate({
 						left:'+='+el.width()
 					}, o.animation_time);
 					o.slide_start = o.slide_start -1;
-					console.log(o.slide_start);
 				}
 			break;
 			case "right":
-				console.log(o.slide_start);
 				if(o.slide_start <= ($(a_el+' .items').length-2)){
 					($(a_el)).animate({
 						left:'-='+el.width()
 					}, o.animation_time);
 					o.slide_start = o.slide_start +1;
-					console.log(o.slide_start);
 				}	
 			break
 		}
 	},
 	clicks : function(el, o){
-		console.log(o);
 		$(el).on('click', 'a.btn', function(e){
-			console.log(o)
-			console.log(el);
 			e.preventDefault();
 			methods.animate($(this).data().action , el, o)
 		})
@@ -96,7 +85,6 @@
 	$.fn.slider = function( method ) {
     // Method calling logic
     if ( methods[method] ) {
-		console.log(this)
       return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
     } else if ( typeof method === 'object' || ! method ) {
       return methods.init.apply( this, arguments );
