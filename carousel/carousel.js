@@ -4,11 +4,10 @@
 		var s = {
 			'direction': 'horizontal',
 			'animation_time':500,
-			'slide_start': 1
+			'slide_start': 0
 		}
-		if(options){
-			o = $.extend(s, options);
-		}
+		if(options){var o = $.extend(s, options);}else{var o = s;}
+		console.log(o)
 		methods.clicks(this, o);
 		methods.build(this, o);
     },
@@ -19,15 +18,17 @@
 		var el_width = el.width() - (parseFloat($(".items").css('padding-left'),10) + parseFloat($(".items").css('padding-right'),10));
 		$('#'+el.attr("id")+' .items').css({"height":el_height+'px', "width":el_width+'px'});
 		$('.items').each(function(i,e){
-			$(this).attr("id", $(this).attr("class")+"_"+i);
+			//$(this).attr("id", $(this).attr("class")+"_"+i);
 		})
 		if(o.slide_start > ($('#'+el.attr("id")+' .items').length -1)){
-			console.log("is bigger than items")
+			//console.log($('#'+el.attr("id")+' .items').length -1 +" - "+ o.slide_start)
 			o.slide_start = ($('#'+el.attr("id")+' .items').length -1);
 		}
 		switch(o.direction){
 			case "horizontal":
 				$('#'+el.attr("id")+' .i_wrap').css({"left":"-"+(o.slide_start*el.width())+"px"});
+				//check if the elemnt is not null - use closest if is null use actuall element - this will allow nesting the slideshows
+				console.log($('#'+el.attr("id")).closest('.i_wrap'))
 				
 				$('#'+el.attr("id")+' .items').css({"float":"left"})
 				$('#'+el.attr("id")+' .i_wrap').css({"width":(el.height()*$('.items').length)+"px"})
@@ -36,6 +37,8 @@
 				$('#'+el.attr("id")+' .i_wrap').css({"top":"-"+(o.slide_start*el.height())+"px"});
 			break;
 		};
+		
+		console.log($('#'+el.attr("id")+' .i_wrap').css("left"));
 		
 		
 		
@@ -82,8 +85,11 @@
 		}
 	},
 	clicks : function(el, o){
+		
 		$(el).on('click', 'a.btn', function(e){
 			e.preventDefault();
+			e.stopPropagation();
+			console.log(el)
 			methods.animate($(this).data().action , el, o)
 		})
 	},
