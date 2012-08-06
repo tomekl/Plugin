@@ -16,7 +16,6 @@
 		var el_height = el.height() - (parseFloat($(".items").css('padding-top'),10) + parseFloat($(".items").css('padding-bottom'),10));
 		var el_width = el.width() - (parseFloat($(".items").css('padding-left'),10) + parseFloat($(".items").css('padding-right'),10));
 		$('#'+el.attr("id")+' .i_wrap:first > .items').css({"height":el_height+'px', "width":el_width+'px'});
-		console.log($('#'+el.attr("id")+' .i_wrap:first > .items').length);
 		if(o.slide_start > ($('#'+el.attr("id")+' .items').length -1)){
 			o.slide_start = ($('#'+el.attr("id")+' .items').length -1);
 		}
@@ -30,7 +29,6 @@
 				$('#'+el.attr("id")+' .i_wrap:first').css({"top":"-"+(o.slide_start*el.height())+"px"});
 			break;
 		};
-
 		$(this.html.nav[o.direction]).attr("data-owner",el.attr("id")).attr("data-dir",o.direction).prependTo(el);
     },
 	animate : function(dir, el, o){
@@ -41,8 +39,7 @@
 					o.slide_start = o.slide_start +1;
 					($(a_el)).animate({
 						top:'-='+el.height()
-					}, parseInt(o.animation_time));
-					
+					}, parseInt(o.animation_time));	
 				}
 			break;
 			case 'down':
@@ -51,7 +48,7 @@
 					($(a_el)).animate({
 						top:'+='+el.height()
 					}, parseInt(o.animation_time));
-					
+			
 				}	
 			break;
 			case "left":
@@ -79,7 +76,6 @@
 		$(el).on('click', 'a.btn', function(e){
 			e.preventDefault();
 			e.stopPropagation();
-			//console.log(el)
 			methods.animate($(this).data().action , el, o)
 		})
 	},
@@ -88,7 +84,6 @@
 			vertical : '<div class="nav_buttons"><a class="btn bt1" data-action="up" href="#">next</a><a class="btn bt2" data-action="down" href="#">prev</a></div>',
 			horizontal : '<div class="nav_buttons"><a class="btn bt1" data-action="left" href="#">prev</a><a class="btn bt2" data-action="right" href="#">next</a></div>'
 		}
-		
 	}
 	};
 	$.fn.slider = function( method ) {
@@ -98,7 +93,7 @@
     } else if ( typeof method === 'object' || ! method ) {
       return methods.init.apply( this, arguments );
     } else {
-      $.error( 'Method ' +  method + ' does not exist on jQuery.slider' );
+      $.error( function(){ alert('Method ' +  method + ' does not exist on jQuery.slider')} );
     }    
   
   };
