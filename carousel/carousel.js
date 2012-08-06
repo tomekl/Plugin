@@ -7,7 +7,6 @@
 			'slide_start': 0
 		}
 		if(options){var o = $.extend(s, options);}else{var o = s;}
-		console.log(o)
 		methods.clicks(this, o);
 		methods.build(this, o);
     },
@@ -16,70 +15,61 @@
 		el.addClass(o.direction);
 		var el_height = el.height() - (parseFloat($(".items").css('padding-top'),10) + parseFloat($(".items").css('padding-bottom'),10));
 		var el_width = el.width() - (parseFloat($(".items").css('padding-left'),10) + parseFloat($(".items").css('padding-right'),10));
-		$('#'+el.attr("id")+' .items').css({"height":el_height+'px', "width":el_width+'px'});
-		$('.items').each(function(i,e){
-			//$(this).attr("id", $(this).attr("class")+"_"+i);
-		})
+		$('#'+el.attr("id")+' .i_wrap:first > .items').css({"height":el_height+'px', "width":el_width+'px'});
+		console.log($('#'+el.attr("id")+' .i_wrap:first > .items').length);
 		if(o.slide_start > ($('#'+el.attr("id")+' .items').length -1)){
-			//console.log($('#'+el.attr("id")+' .items').length -1 +" - "+ o.slide_start)
 			o.slide_start = ($('#'+el.attr("id")+' .items').length -1);
 		}
 		switch(o.direction){
 			case "horizontal":
-				$('#'+el.attr("id")+' .i_wrap').css({"left":"-"+(o.slide_start*el.width())+"px"});
-				//check if the elemnt is not null - use closest if is null use actuall element - this will allow nesting the slideshows
-				console.log($('#'+el.attr("id")).closest('.i_wrap'))
-				
+				$('#'+el.attr("id")+' .i_wrap:first').css({"left":"-"+(o.slide_start*el.width())+"px"});
 				$('#'+el.attr("id")+' .items').css({"float":"left"})
-				$('#'+el.attr("id")+' .i_wrap').css({"width":(el.height()*$('.items').length)+"px"})
+				$('#'+el.attr("id")+' .i_wrap:first').css({"width":(el.height()*$('.items').length)+"px"})
 			break;
 			case "vertical":
-				$('#'+el.attr("id")+' .i_wrap').css({"top":"-"+(o.slide_start*el.height())+"px"});
+				$('#'+el.attr("id")+' .i_wrap:first').css({"top":"-"+(o.slide_start*el.height())+"px"});
 			break;
 		};
-		
-		console.log($('#'+el.attr("id")+' .i_wrap').css("left"));
-		
-		
-		
-		
-		
-		
-		$(this.html.nav[o.direction]).attr("data-owner",el.attr("id")).prependTo(el);
+
+		$(this.html.nav[o.direction]).attr("data-owner",el.attr("id")).attr("data-dir",o.direction).prependTo(el);
     },
 	animate : function(dir, el, o){
-		var a_el = '#'+el.attr('id')+" .i_wrap";
+		var a_el = '#'+el.attr('id')+' .i_wrap:first';
 		switch(dir){
 			case 'up':
-				if(o.slide_start <= ($(a_el+' .items').length-2)){
+				if(o.slide_start <= ($(a_el+' > .items').length-2)){
+					o.slide_start = o.slide_start +1;
 					($(a_el)).animate({
 						top:'-='+el.height()
 					}, parseInt(o.animation_time));
-					o.slide_start = o.slide_start +1;
+					
 				}
 			break;
 			case 'down':
 				if(o.slide_start >= 1){
+					o.slide_start = o.slide_start -1;
 					($(a_el)).animate({
 						top:'+='+el.height()
 					}, parseInt(o.animation_time));
-					o.slide_start = o.slide_start -1;
+					
 				}	
 			break;
 			case "left":
 				if(o.slide_start >= 1){
+					o.slide_start = o.slide_start -1;
 					($(a_el)).animate({
 						left:'+='+el.width()
 					}, parseInt(o.animation_time));
-					o.slide_start = o.slide_start -1;
+					
 				}
 			break;
 			case "right":
-				if(o.slide_start <= ($(a_el+' .items').length-2)){
+				if(o.slide_start <= ($(a_el+' > .items').length-2)){
+					o.slide_start = o.slide_start +1;
 					($(a_el)).animate({
 						left:'-='+el.width()
 					}, parseInt(o.animation_time));
-					o.slide_start = o.slide_start +1;
+					
 				}	
 			break
 		}
@@ -89,7 +79,7 @@
 		$(el).on('click', 'a.btn', function(e){
 			e.preventDefault();
 			e.stopPropagation();
-			console.log(el)
+			//console.log(el)
 			methods.animate($(this).data().action , el, o)
 		})
 	},

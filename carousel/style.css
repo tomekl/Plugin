@@ -1,3 +1,4 @@
+/*slider*/
 .slider{
 	position:relative;
 	overflow:hidden;
@@ -10,10 +11,11 @@
 .i_wrap{
 	position:absolute;top:0;
 }
-.nav_buttons{position:absolute;height:99%;border:1px solid red;width:99%;z-index:2;}
+/*E[foo="bar"]*/
+.nav_buttons{position:absolute;height:99%;width:99%;z-index:2;}
 .nav_buttons .btn{position:absolute;	}
-.vertical .bt1{top:0px;}
-.vertical .bt2{bottom:0px;}
-.horizontal .bt1{top:50%;left:0px;}
-.horizontal .bt2{right:0px;top:50%;}
+div[data-dir="vertical"] .bt1{top:0px;}
+div[data-dir="vertical"]  .bt2{bottom:0px;}
+div[data-dir="horizontal"] .bt1{top:50%;left:0px!important;}
+div[data-dir="horizontal"] .bt2{right:0px;top:50%!important;}
 /*slider ends*/
